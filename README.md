@@ -2,8 +2,6 @@
 
 ## Prerequisites
 - [Docker](https://docs.docker.com/get-started/get-docker/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
-- Python 3.12
 
 ## Setup kubeconfig (TODO)
 
