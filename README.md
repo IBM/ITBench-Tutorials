@@ -14,9 +14,31 @@ git clone https://github.com/IBM/ITBench-SRE-Agent/
 cd ITBench-SRE-Agent
 ```
 
-2. Move the kubeconfig of the cluster on which ITBench is running into the root directory of this repo.
+1. Move the provided kubeconfig into the root directory of this repo.
 
-3. Create a `.env` based on `.env.tmpl` by running:
+2. Build the image.
+```bash
+docker build -t itbench-sre-agent .
+```
+
+3. Run the image in interactive mode:
+```bash
+# Linux
+docker run --network=host -it itbench-sre-agent /bin/bash
+
+# Mac
+docker run -it itbench-sre-agent /bin/bash
+```
+
+4. Grab the observability URL
+Inside the docker container run:
+```bash
+kubectl get Ingress -A
+```
+
+Copy the URL.
+
+5. Create a `.env` based on `.env.tmpl` by running:
 ```bash
 cp .env.tmpl .env
 ```
@@ -58,12 +80,12 @@ MAX_TOKENS_TOOLS=16000 # see above
 WX_PROJECT_ID="" # required only when using a watsonx model
 
 # Linux
-GRAFANA_URL="http://localhost:8080/grafana"
-TOPOLOGY_URL="http://localhost:8081"
+OBSERVABILITY_STACK_URL="<observability-url>/prometheus"
+TOPOLOGY_URL="<observability-url>/topology"
 
 # Mac
-GRAFANA_URL="http://docker.host.internal:8080/grafana"
-TOPOLOGY_URL="http://docker.host.internal:8081"
+OBSERVABILITY_STACK_URL="<observability-url>/prometheus"
+TOPOLOGY_URL="<observability-url>/topology"
 
 # DO NOT ALTER THESE VALUES
 AGENT_TASK_DIRECTORY="config"
@@ -76,61 +98,7 @@ GRAFANA_SERVICE_ACCOUNT_TOKEN="not_required"
 KUBECONFIG="/app/lumyn/config"
 ```
 
-Update the values here to switch LLM backends. Supports all providers and models that are available through [LiteLLM](https://docs.litellm.ai/docs/providers). Also update the values at the bottom so the agent can interact with your cluster.
-
-4. Build the image.
-```bash
-docker build -t itbench-sre-agent .
-```
-
-5. Run the image in interactive mode:
-```bash
-# Linux
-docker run --network=host -it itbench-sre-agent /bin/bash
-
-# Mac
-docker run -it itbench-sre-agent /bin/bash
-```
 6. Start the agent:
 ```bash
 crewai run
 ```
-
-Pre-built images coming soon.
-
-# Development Setup Instructions
-1. Clone the repo
-```bash
-git clone git@github.com:IBM/itbench-sre-agent.git
-cd itbench-sre-agent
-```
-
-2. This project uses Python 3.12. Install uv for dependency management and install crewai.  
-
-Mac/Linux
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-uv tool install crewai
-```
-  
-Windows  
-```bash
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-uv tool install crewai
-```
-3. Navigate to the root project directory and install the dependencies using the CLI command:
-```bash
-crewai install
-```
-  
-4. Create a `.env` based on `.env.tmpl` by running:
-```bash
-cp .env.tmpl .env
-```
-Update the values here to switch LLM backends.
-  
-5. Customize:  
-- Modify `src/lumyn/config/agents.yaml` to define your agents
-- Modify `src/lumyn/config/tasks.yaml` to define your tasks
-- Modify `src/lumyn/crew.py` to add your own logic, tools and specific args
-- Modify `src/lumyn/main.py` to add custom inputs for your agents and tasks
