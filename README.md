@@ -12,8 +12,8 @@ The agent should always be run in a container in order to prevent harmful comman
 
 1. Clone the repo.
 ```bash
-git clone git@github.com:IBM/itbench-sre-agent.git
-cd itbench-sre-agent
+git clone https://github.com/IBM/ITBench-SRE-Agent/
+cd ITBench-SRE-Agent
 ```
 
 2. Move the kubeconfig of the cluster on which ITBench is running into the root directory of this repo.
