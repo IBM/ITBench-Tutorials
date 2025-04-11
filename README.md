@@ -80,12 +80,12 @@ MAX_TOKENS_TOOLS=16000 # see above
 WX_PROJECT_ID="" # required only when using a watsonx model
 
 # Linux
-OBSERVABILITY_STACK_URL="<observability-url>/prometheus"
-TOPOLOGY_URL="<observability-url>/topology"
+OBSERVABILITY_STACK_URL="http://<observability-url>/prometheus"
+TOPOLOGY_URL="http://<observability-url>/topology"
 
 # Mac
-OBSERVABILITY_STACK_URL="<observability-url>/prometheus"
-TOPOLOGY_URL="<observability-url>/topology"
+OBSERVABILITY_STACK_URL="http://<observability-url>/prometheus"
+TOPOLOGY_URL="http://<observability-url>/topology"
 
 # DO NOT ALTER THESE VALUES
 AGENT_TASK_DIRECTORY="config"
