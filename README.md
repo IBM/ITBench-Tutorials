@@ -14,14 +14,15 @@ cd ITBench-SRE-Agent
 ```
 
 2. Move the provided kubeconfig file into the root directory of this repo.
-3. Move the provided `.env` file to the root directory of this repo.
+3. Rename the file to just `config`
+4. Move the provided `.env` file to the root directory of this repo.
 
-4. Build the image.
+5. Build the image.
 ```bash
 docker build -t itbench-sre-agent .
 ```
 
-5. Run the image in interactive mode:
+6. Run the image in interactive mode:
 ```bash
 # Mac
 docker run --mount type=bind,src="$(pwd)",target=/app/lumyn -e KUBECONFIG=/app/lumyn/config -it itbench-sre-agent /bin/bash
@@ -32,7 +33,7 @@ docker run --network=host --mount type=bind,src="$(pwd)",target=/app/lumyn -e KU
 ```
 
 
-6. Grab the observability URL
+7. Grab the observability URL
 Inside the docker container run:
 ```bash
 kubectl get ingress -n prometheus
@@ -45,14 +46,14 @@ prometheus   nginx   *       ad54bc930b7ec40c38f06be1a1ed0758-1859094179.us-west
 ```
 Copy the content under the `ADDRESS` section. This is the value we need in the next step as the value for `<observability-url>`.
 
-7. Open the `.env` file in a text editor  
+8. Open the `.env` file in a text editor  
 Update the following values:
 - `API_KEY_AGENTS`: Provided API key
 - `API_KEY_TOOLS`: Provided API key
 - `OBSERVABILITY_STACK_URL`: `http://<observability-url>`
 - `TOPOLOGY_URL`: `http://<observability-url>/topology`
 
-8. Start the agent:
+9. Start the agent:
 ```bash
 crewai run
 ```
