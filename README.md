@@ -23,12 +23,14 @@ docker build -t itbench-sre-agent .
 
 3. Run the image in interactive mode:
 ```bash
-# Linux
-docker run --network=host -it itbench-sre-agent /bin/bash
-
 # Mac
-docker run -it itbench-sre-agent /bin/bash
+docker run --mount type=bind,src="$(pwd)",target=/app/lumyn -e KUBECONFIG=/app/lumyn/config -it itbench-sre-agent /bin/bash
 ```
+```bash
+# Linux
+docker run --network=host --mount type=bind,src="$(pwd)",target=/app/lumyn -e KUBECONFIG=/app/lumyn/config -it itbench-sre-agent /bin/bash
+```
+
 
 4. Grab the observability URL
 Inside the docker container run:
