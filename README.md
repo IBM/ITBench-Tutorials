@@ -42,13 +42,13 @@ Copy the URL.
 
 7. Open the `.env` file in a text editor  
 Update the following values:
-- `API_KEY_AGENTS`
-- `API_KEY_TOOLS`
-- `OBSERVABILITY_STACK_URL`
-- `TOPOLOGY_URL`
+- `API_KEY_AGENTS`: Provided API key
+- `API_KEY_TOOLS`: Provided API key
+- `OBSERVABILITY_STACK_URL`: `http:/<observability-url>/prometheus`
+- `TOPOLOGY_URL`: `http:/<observability-url>/topology`
 
 
-8. Start the agent:
+1. Start the agent:
 ```bash
 crewai run
 ```
