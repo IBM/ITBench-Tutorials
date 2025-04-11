@@ -3,7 +3,6 @@
 ## Prerequisites
 - [Docker](https://docs.docker.com/get-started/get-docker/)
 
-## Setup kubeconfig (TODO)
 
 ## Running with Docker
 The agent should always be run in a container in order to prevent harmful commands being run on the user's PC.  
