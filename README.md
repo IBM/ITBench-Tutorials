@@ -9,7 +9,7 @@ The agent should always be run in a container in order to prevent harmful comman
 
 1. Clone the repo.
 ```bash
-git clone https://github.com/IBM/ITBench-SRE-Agent/
+git clone https://github.com/IBM/ITBench-SRE-Agent
 cd ITBench-SRE-Agent
 ```
 
@@ -35,20 +35,24 @@ docker run --network=host --mount type=bind,src="$(pwd)",target=/app/lumyn -e KU
 6. Grab the observability URL
 Inside the docker container run:
 ```bash
-kubectl get Ingress -A
+kubectl get ingress -n prometheus
 ```
 
-Copy the URL.
+As an example, you should see:
+```
+NAME         CLASS   HOSTS   ADDRESS                                                                   PORTS   AGE
+prometheus   nginx   *       ad54bc930b7ec40c38f06be1a1ed0758-1859094179.us-west-2.elb.amazonaws.com   80      10h
+```
+Copy the content under the `ADDRESS` section. This is the value we need in the next step as the value for `<observability-url>`.
 
 7. Open the `.env` file in a text editor  
 Update the following values:
 - `API_KEY_AGENTS`: Provided API key
 - `API_KEY_TOOLS`: Provided API key
-- `OBSERVABILITY_STACK_URL`: `http:/<observability-url>/prometheus`
-- `TOPOLOGY_URL`: `http:/<observability-url>/topology`
+- `OBSERVABILITY_STACK_URL`: `http://<observability-url>`
+- `TOPOLOGY_URL`: `http://<observability-url>/topology`
 
-
-1. Start the agent:
+8. Start the agent:
 ```bash
 crewai run
 ```
