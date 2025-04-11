@@ -13,14 +13,15 @@ git clone https://github.com/IBM/ITBench-SRE-Agent/
 cd ITBench-SRE-Agent
 ```
 
-2. Move the provided kubeconfig into the root directory of this repo.
+2. Move the provided kubeconfig file into the root directory of this repo.
+3. Move the provided `.env` file to the root directory of this repo.
 
-3. Build the image.
+4. Build the image.
 ```bash
 docker build -t itbench-sre-agent .
 ```
 
-4. Run the image in interactive mode:
+5. Run the image in interactive mode:
 ```bash
 # Mac
 docker run --mount type=bind,src="$(pwd)",target=/app/lumyn -e KUBECONFIG=/app/lumyn/config -it itbench-sre-agent /bin/bash
@@ -31,7 +32,7 @@ docker run --network=host --mount type=bind,src="$(pwd)",target=/app/lumyn -e KU
 ```
 
 
-5. Grab the observability URL
+6. Grab the observability URL
 Inside the docker container run:
 ```bash
 kubectl get Ingress -A
@@ -39,10 +40,15 @@ kubectl get Ingress -A
 
 Copy the URL.
 
-6. Create a `.env` based on `.env.tmpl` by running:
+7. Open the `.env` file in a text editor  
+Update the following values:
+- `API_KEY_AGENTS`
+- `API_KEY_TOOLS`
+- `OBSERVABILITY_STACK_URL`
+- `TOPOLOGY_URL`
 
 
-7. Start the agent:
+8. Start the agent:
 ```bash
 crewai run
 ```
